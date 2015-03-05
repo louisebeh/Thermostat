@@ -7,13 +7,13 @@ var Thermostat = function(){
   this.temperature = this.defaultTemp
 
   this.powerSaving = true;
-  this.powerSavingMaxTemp = 25;
+  this.powerSavingLimit = 25;
   this.lowEnergyCap = 18;
 
 };
 
   Thermostat.prototype.increase = function() {
-    if (this.powerSaving === true && (this.temperature < this.powerSavingMaxTemp)) {
+    if (this.powerSaving === true && (this.temperature < this.powerSavingLimit)) {
       this.temperature++;
     }
     else if (this.powerSaving === false && (this.temperature < this.maxTemp)) {
@@ -33,9 +33,9 @@ var Thermostat = function(){
 
   Thermostat.prototype.powerSavingOn = function() {
     this.powerSaving = true;
-    this.powerSavingMaxTemp;
-      if (this.temperature > this.powerSavingMaxTemp) {
-      this.temperature = this.powerSavingMaxTemp
+    this.powerSavingLimit;
+      if (this.temperature > this.powerSavingLimit) {
+      this.temperature = this.powerSavingLimit
     }
   };
 
@@ -51,10 +51,10 @@ var Thermostat = function(){
     if (this.temperature < this.lowEnergyCap) {
       return 'low';
     }
-    else if ((this.temperature >= this.lowEnergyCap) && (this.temperature <= this.powerSavingMaxTemp)) {
+    else if ((this.temperature >= this.lowEnergyCap) && (this.temperature <= this.powerSavingLimit)) {
       return 'medium';
     }
-    else if (this.temperature > this.powerSavingMaxTemp) {
+    else if (this.temperature > this.powerSavingLimit) {
       return 'high';
     }
   };

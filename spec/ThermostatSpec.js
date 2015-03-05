@@ -12,7 +12,7 @@ describe("Thermostat", function(){
       expect(thermostat.powerSaving).toBe(true);
     });
 
-    it("temp is 20 degrees", function(){
+    it("start temp is 20 degrees", function(){
       expect(thermostat.temperature).toEqual(20);
     });
 
@@ -72,21 +72,21 @@ describe("Thermostat", function(){
       expect(thermostat.powerSaving).toBe(true);
     });
 
-    it("has a max temp of 25 degrees", function(){
-      expect(thermostat.powerSavingMaxTemp).toEqual(25);
+    it("has a limit of 25 degrees", function(){
+      expect(thermostat.powerSavingLimit).toEqual(25);
     });
 
-    it("cannot increase temp above 25 degrees", function(){
-      thermostat.powerSavingMaxTemp
+    it("cannot increase above the power saving limit", function(){
+      thermostat.powerSavingLimit
       expect(thermostat.increase).toThrowError('maximum temperature reached');
     });
 
     describe("when switched on", function() {
 
-      it("any temperature above maximum, reduces to limit", function() {
+      it("any temperature above maximum, reduces to power saving limit", function() {
         thermostat.temperature = 30
         thermostat.powerSavingOn();
-        expect(thermostat.temperature).toEqual(thermostat.powerSavingMaxTemp)
+        expect(thermostat.temperature).toEqual(thermostat.powerSavingLimit)
       });
 
       it("any temperature below limit, remains unchanged", function() {
@@ -107,17 +107,17 @@ describe("Thermostat", function(){
 
   describe("energy rating", function(){
 
-    it("less than 18 degrees is considered low usage", function() {
+    it("low usage: less than 18 degrees", function() {
       thermostat.temperature = 15
       expect(thermostat.energyRating()).toEqual('low');
     });
 
-    it("less than 25 degrees is considered medium usage", function() {
+    it("medium usage: less than 25 degrees", function() {
       thermostat.temperature = 20
       expect(thermostat.energyRating()).toEqual('medium');
     });
 
-    it("25 or above is considered high usage", function() {
+    it("high usage: above 25 degress", function() {
       thermostat.temperature = 30
       expect(thermostat.energyRating()).toEqual('high');
     });
